@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Add Course</h2>
+
+<form method="post">
+    <input name="name" placeholder="Course Name" required><br><br>
+    <input name="price" type="number" placeholder="Price"><br><br>
+    <input name="teacher" placeholder="Teacher"><br><br>
+    <input name="duration" placeholder="Duration"><br><br>
+    <input name="seats_count" type="number" placeholder="Seats"><br><br>
+
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Course</h2>
+
+<form method="post">
+    <input name="name" value="{{ course.name }}"><br><br>
+    <input name="price" type="number" value="{{ course.price }}"><br><br>
+    <input name="teacher" value="{{ course.teacher }}"><br><br>
+    <input name="duration" value="{{ course.duration }}"><br><br>
+    <input name="seats_count" type="number" value="{{ course.seats_count }}"><br><br>
+
+    <button type="submit">Update</button>
+</form>
+{% endblock %}
