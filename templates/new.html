@@ -1,16 +1,53 @@
-
 {% extends 'base.html' %}
 
+{% block title %}Course Form{% endblock %}
+
 {% block content %}
-<h2>Add Course</h2>
 
-<form method="post">
-    <input name="name" placeholder="Course Name" required><br><br>
-    <input name="price" type="number" placeholder="Price"><br><br>
-    <input name="teacher" placeholder="Teacher"><br><br>
-    <input name="duration" placeholder="Duration"><br><br>
-    <input name="seats_count" type="number" placeholder="Seats"><br><br>
+<div class="card shadow col-md-6 mx-auto">
+    <div class="card-body">
+        <h3 class="mb-4 text-center">Course Form</h3>
 
-    <button type="submit">Save</button>
-</form>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Course Name</label>
+                <input type="text" name="name" class="form-control"
+                       value="{{ course.name if course else '' }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Price ($)</label>
+                <input type="number" name="price" class="form-control" min="0" max="10000" required
+                       value="{{ course.price if course else '' }}">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Duration (month)</label>
+                <input type="number" name="duration" class="form-control" min="0" max="12"
+                       value="{{ course.duration if course else '' }}">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Seats Count</label>
+                <input type="number" name="seats_count" class="form-control" min="0" max="100"
+                       value="{{ course.seats_count if course else '' }}">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Teacher</label>
+                <select name="teacher_id" class="form-select">
+                    {% for teacher in teachers %}
+                        <option value="{{ teacher.id }}"
+                        {% if course and course.teacher_id == teacher.id %}selected{% endif %}>
+                            {{ teacher.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button class="btn btn-success w-100">Save</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}

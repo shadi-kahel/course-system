@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Teacher{% endblock %}
+
+{% block content %}
+
+<div class="card col-md-6 mx-auto mt-5 shadow">
+    <div class="card-body">
+        <h3 class="mb-4 text-center">Update Teacher</h3>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text"
+                       name="name"
+                       class="form-control"
+                       value="{{ teacher.name }}"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email"
+                       name="email"
+                       class="form-control"
+                       value="{{ teacher.email }}">
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">
+                Update
+            </button>
+        </form>
+
+        <a href="{{ url_for('teachers_list') }}"
+           class="btn btn-secondary w-100 mt-2">
+           Back
+        </a>
+    </div>
+</div>
+
+{% endblock %}
