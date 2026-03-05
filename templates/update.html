@@ -34,6 +34,11 @@
             </div>
 
             <div class="mb-3">
+                <label>Description</label>
+                <textarea name="description" class="form-control">{{ course.description }}</textarea>
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label">Teacher</label>
                 <select name="teacher_id" class="form-select">
                     {% for teacher in teachers %}

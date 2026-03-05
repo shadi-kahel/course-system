@@ -31,6 +31,11 @@
                 <label class="form-label">Seats Count</label>
                 <input type="number" name="seats_count" class="form-control" min="0" max="100"
                        value="{{ course.seats_count if course else '' }}">
+            </div>        
+               
+            <div class="mb-3">
+                <label>Description</label>
+                <textarea name="description" class="form-control" rows="4"></textarea>           
             </div>
 
             <div class="mb-3">
