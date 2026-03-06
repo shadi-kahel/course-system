@@ -345,7 +345,7 @@ def update_teacher(id):
 
         with get_db() as conn:
             conn.execute(
-                "UPDATE teachers SET name=?, email=? WHERE id=?",
+                "UPDATE teachers SET name=?, email=?, WHERE id=?",
                 (name, email, id)
             )
 
@@ -424,7 +424,7 @@ def new_course():
             return redirect(url_for('new_course'))
     
         conn.execute("""
-            INSERT INTO courses (name, price, teacher_id, duration, seats_count)
+            INSERT INTO courses (name, price, teacher_id, duration, seats_count, description)
             VALUES (?, ?, ?, ?, ?, ?)
         """, (
             name,
@@ -471,7 +471,7 @@ def update_course(id):
         
         conn.execute("""
             UPDATE courses
-            SET name=?, price=?, teacher_id=?, duration=?, seats_count=?  description=?
+            SET name=?, price=?, teacher_id=?, duration=?, seats_count=?, description=?
             WHERE id=?
         """, (
             name,
