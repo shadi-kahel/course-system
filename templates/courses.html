@@ -68,14 +68,13 @@
                 {% if course.description %}
                     <p>{{ course.description }}</p>
                 {% else %}
-                    <input class="text-muted w-100" type="Text" id="course-discription"
-                        value="description for this course">
+                    <p class="text-muted">No description for this course</p>                
                 {% endif %}
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-success" data-bs-dismiss="modal">Save</button>
                 </div>          
+            </div>          
         </div>
     </div>
 {% endfor %}
