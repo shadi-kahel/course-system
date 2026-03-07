@@ -37,6 +37,7 @@ def init_db():
             FOREIGN KEY (teacher_id) REFERENCES teachers(id)
         )
     """)  
+    
     conn.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -294,7 +295,8 @@ def is_valid_country(country):
 
 VALID_COUNTRIES = [
     "United States", "Canada", "United Kingdom", "Germany", "France",
-    "Italy", "Spain", "Australia", "Egypt", "India", "Japan", "Syria", "Eraq", "UAE"
+    "Italy", "Spain", "Australia", "Egypt", "India", "Japan", "Syria", 
+    "Iraq", "United Arab Emirates"
 ]
 
 @app.route('/teachers')
@@ -345,7 +347,7 @@ def update_teacher(id):
 
         with get_db() as conn:
             conn.execute(
-                "UPDATE teachers SET name=?, email=?, WHERE id=?",
+                "UPDATE teachers SET name=?, email=? WHERE id=?",
                 (name, email, id)
             )
 
@@ -390,7 +392,8 @@ def courses_list():
             row["price"],
             row["teacher_name"],
             row["duration"],
-            row["seats_count"]
+            row["seats_count"],
+            row["description"]
         )
         courses.append(course)
     return render_template('courses.html', courses=courses)

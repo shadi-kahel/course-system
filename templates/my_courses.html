@@ -52,13 +52,39 @@
                         <td>{{ course.teacher_name or 'N/A' }}</td>
                         <td>{{ course.duration }} month</td>
                         <td>{{ course.seats_count }}</td>
-                        <td>
+                        <td> 
+                            <button class="btn btn-info btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#descModal{{ course.id }}">
+                                Description
+                            </button>
+
                             <form action="{{ url_for('unenroll_course', course_id=course.id) }}" method="post" class="d-inline">
                                 <button type="submit" class="btn btn-danger btn-sm">Unenroll</button>
-                            </form>
+                            </form>                            
                         </td>
                     </tr>
-                    {% endfor %}
+                <div class="modal fade" id="descModal{{ course.id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">{{ course.name }} </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body" style="white-space: pre-line; overflow: auto; height: 450px">
+                                {{ course.description or "No description available" }}
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>    
+                {% endfor %}
                 </tbody>
             </table>
         </div>
