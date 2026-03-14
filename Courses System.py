@@ -1,4 +1,4 @@
-from flask import Flask, flash, render_template, request, redirect, url_for
+from flask import Flask, flash, jsonify, render_template, request, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from models import Course 
@@ -377,12 +377,23 @@ def delete_teacher(id):
 @login_required
 def courses_list():
     conn = get_db()
+    
     rows = conn.execute("""
-        SELECT courses.*, teachers.name as teacher_name
+        SELECT courses.*, teachers.name as teacher_name,
+               COUNT(enrollments.id) as enrolled_count
         FROM courses
         LEFT JOIN teachers ON courses.teacher_id = teachers.id
-    """).fetchall()
+        LEFT JOIN enrollments ON courses.id = enrollments.course_id
+        GROUP BY courses.id
+    """).fetchall() 
+       
+    enrolled_courses = conn.execute("""
+        SELECT course_id FROM enrollments
+        WHERE user_id=?
+    """, (session['user_id'],)).fetchall()
     conn.close()
+    
+    enrolled_ids = [row["course_id"] for row in enrolled_courses]
     
     courses = []
     for row in rows:
@@ -395,8 +406,10 @@ def courses_list():
             row["seats_count"],
             row["description"]
         )
+        course.enrolled_count = row["enrolled_count"]
         courses.append(course)
-    return render_template('courses.html', courses=courses)
+        
+    return render_template('courses.html', courses=courses, enrolled_ids=enrolled_ids)
 
 @app.route('/new', methods=['GET', 'POST'])
 @login_required
