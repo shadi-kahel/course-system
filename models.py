@@ -7,6 +7,7 @@ class Course:
         self.duration = duration
         self.seats_count = seats_count
         self.description = description
+        self.enrolled_count = 0
         
     def to_dict(self):
         return {

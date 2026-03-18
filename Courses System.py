@@ -5,9 +5,10 @@ from models import Course
 from flask import session
 import sqlite3
 import re
+import os
 
 app = Flask(__name__)
-app.secret_key = "dev-secret-key"
+app.secret_key = os.urandom(24)
 DATABASES = 'courses.db'
 
 def get_db():
@@ -25,6 +26,7 @@ def init_db():
             email TEXT
         )
     """)
+    
     conn.execute("""
         CREATE TABLE IF NOT EXISTS courses (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,7 +50,8 @@ def init_db():
             birth_date TEXT,
             country TEXT
         )
-    """)  
+    """) 
+     
     conn.execute("""
         CREATE TABLE IF NOT EXISTS enrollments (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -440,7 +443,7 @@ def new_course():
             return redirect(url_for('new_course'))
     
         conn.execute("""
-            INSERT INTO courses (name, price, teacher_id, duration, seats_count, description)
+            INSERT INTO courses (name, price, teacher_id, duration, seats_count, description)   
             VALUES (?, ?, ?, ?, ?, ?)
         """, (
             name,
